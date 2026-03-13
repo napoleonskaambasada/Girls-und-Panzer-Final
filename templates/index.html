@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Girls und Panzer Fan Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>Girls und Panzer</h1>
+
+<div class="container">
+
+{% for school in schools %}
+<div class="card">
+
+<img src="{{ url_for('static', filename=school.image) }}">
+
+<h3>{{ school.name }}</h3>
+<p><b>Commander:</b> {{ school.commander }}</p>
+<p><b>Tank:</b> {{ school.tank }}</p>
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
