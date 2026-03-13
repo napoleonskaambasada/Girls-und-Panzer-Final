@@ -32,6 +32,12 @@ schools = [
         "tank": "Type 97 Chi-Ha",
         "commander": "Kinuyo Nishi",
         "image": "images/Chihatan.jpg"
+    },
+    {
+        "name": "Anzio High School",
+        "tank": "Carro Veloce CV.33",
+        "commander": "Chiyomi Anzai",
+        "image": "images/Anzio.jpg"
     }
 ]
 
