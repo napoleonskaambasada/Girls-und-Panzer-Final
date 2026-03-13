@@ -26,6 +26,12 @@ schools = [
         "tank": "Churchill",
         "commander": "Darjeeling",
         "image": "images/Gloriana.jpg"
+    },
+    {
+        "name": "Chi-Ha-Tan Academy",
+        "tank": "Type 97 Chi-Ha",
+        "commander": "Kinuyo Nishi",
+        "image": "images/Chihatan.jpg"
     }
 ]
 
