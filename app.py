@@ -7,19 +7,25 @@ schools = [
         "name": "Ōarai Girls Academy",
         "tank": "Panzer IV",
         "commander": "Miho Nishizumi",
-        "image": "images/panzer4.jpg"
+        "image": "images/Oarai.jpg"
     },
     {
         "name": "Kuromorimine Girls Academy",
         "tank": "Tiger I",
         "commander": "Maho Nishizumi",
-        "image": "images/tiger1.jpg"
+        "image": "images/Kuromorimine.jpg"
+    },
+    {
+        "name": "Pravda High School",
+        "tank": "T-34/85",
+        "commander": "Katyusha",
+        "image": "images/Pravda.jpg"
     },
     {
         "name": "St. Gloriana Girls College",
         "tank": "Churchill",
         "commander": "Darjeeling",
-        "image": "images/churchill.jpg"
+        "image": "images/Gloriana.jpg"
     }
 ]
 
