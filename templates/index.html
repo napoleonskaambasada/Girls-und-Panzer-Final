@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Girls und Panzer Fan Page</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Girls und Panzer Fan Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
+<div class="page">
+
 <h1>Girls und Panzer</h1>
 
+<h2>Main Schools</h2>
 <div class="container">
-
-{% for school in schools %}
+{% for school in main_schools %}
 <div class="card">
 
-<img src="{{ url_for('static', filename=school.image) }}">
+    <div class="img-container">
+        <img src="{{ url_for('static', filename=school.image) }}">
+    </div>
 
-<h3>{{ school.name }}</h3>
-<p><b>Commander:</b> {{ school.commander }}</p>
-<p><b>Tank:</b> {{ school.tank }}</p>
+    <h3>{{ school.name }}</h3>
+    <p><b>Commander:</b> {{ school.commander }}</p>
+    <p><b>Tank:</b> {{ school.tank }}</p>
 
 </div>
 {% endfor %}
+</div>
+
+<h2>Minor Schools</h2>
+<div class="container">
+{% for school in minor_schools %}
+<div class="card">
+
+    <div class="img-container">
+        <img src="{{ url_for('static', filename=school.image) }}">
+    </div>
+
+    <h3>{{ school.name }}</h3>
+    <p><b>Commander:</b> {{ school.commander }}</p>
+    <p><b>Tank:</b> {{ school.tank }}</p>
+
+</div>
+{% else %}
+<p>No minor schools added yet.</p>
+{% endfor %}
+</div>
 
 </div>
 
