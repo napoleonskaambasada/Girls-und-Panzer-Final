@@ -1,24 +1,98 @@
-body{
-    font-family: Arial;
-    background:#f0f0f0;
-    padding:30px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+    color: #f5f5f5;
+    padding: 30px;
 }
 
-.card{
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    width:250px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+.page {
+    max-width: 1200px;
+    margin: auto;
 }
 
-.card img{
-    width:100%;
-    border-radius:8px;
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: #ffd166;
+}
+
+h2 {
+    margin: 30px 0 15px;
+    border-left: 5px solid #ffd166;
+    padding-left: 10px;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Card */
+.card {
+    background: #2f2f4f;
+    border-radius: 15px;
+    width: 260px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+}
+
+/* Image container */
+.img-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e1e2f;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.img-container img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* Text */
+.card h3 {
+    padding: 10px;
+    font-size: 1.2rem;
+    color: #ffd166;
+}
+
+.card p {
+    padding: 0 10px 5px;
+    font-size: 0.9rem;
+}
+
+p {
+    text-align: center;
+    opacity: 0.7;
+}
+
+.page {
+    max-width: 1200px;
+    margin: auto;
+    background: rgba(20, 20, 40, 0.6);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
 }
