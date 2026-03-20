@@ -107,43 +107,43 @@ minor_schools = [
         "name": "Bellwall Academy",
         "tank": "T-44",
         "commander": "Emi Nakasuga",
-        "image": "images/Bewall.jpg"
+        "image": "images/Bellwall.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Gregor High School",
+        "tank": "Kafka",
+        "commander": "Panzer 38(t)",
+        "image": "images/Gregor.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Gilbert High School",
+        "tank": "M26 Pershing",
+        "commander": "Jinko Yoshinaga",
+        "image": "images/Gilbert.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Koala Forest Academy",
+        "tank": "AC.I Sentinel",
+        "commander": "Koala (an actual one)",
+        "image": "images/Koala.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Maple High School",
+        "tank": "Light Tank Mk VIB",
+        "commander": "Trout",
+        "image": "images/Maple.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Tategoto High School",
+        "tank": "Type 95 Ha-Go",
+        "commander": "Aung",
+        "image": "images/tategoto.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Tatenashi High School",
+        "tank": "Type 97 Te-Ke",
+        "commander": "Shizuka Tsuruki",
+        "image": "images/Tatenashi.jpg"
     },
     {
         "name": "",
