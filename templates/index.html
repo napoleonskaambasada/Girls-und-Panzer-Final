@@ -11,6 +11,7 @@
 
 <h1>Girls und Panzer</h1>
 
+<!-- MAIN SCHOOLS -->
 <h2>Main Schools</h2>
 <div class="container">
 {% for school in main_schools %}
@@ -28,6 +29,7 @@
 {% endfor %}
 </div>
 
+<!-- MINOR SCHOOLS -->
 <h2>Minor Schools</h2>
 <div class="container">
 {% for school in minor_schools %}
@@ -44,6 +46,26 @@
 </div>
 {% else %}
 <p>No minor schools added yet.</p>
+{% endfor %}
+</div>
+
+<!-- HIGHER EDUCATION -->
+<h2>Higher Education</h2>
+<div class="container">
+{% for school in higher_education %}
+<div class="card">
+
+    <div class="img-container">
+        <img src="{{ url_for('static', filename=school.image) }}">
+    </div>
+
+    <h3>{{ school.name }}</h3>
+    <p><b>Commander:</b> {{ school.commander }}</p>
+    <p><b>Tank:</b> {{ school.tank }}</p>
+
+</div>
+{% else %}
+<p>No higher education schools added yet.</p>
 {% endfor %}
 </div>
 

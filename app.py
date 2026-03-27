@@ -146,25 +146,40 @@ minor_schools = [
         "image": "images/Tatenashi.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Viggen High School",
+        "tank": "Strv m/40 light tank",
+        "commander": "Semla",
+        "image": "images/Viggen.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "West Kureouji Grona Academy",
+        "tank": "Black Prince",
+        "commander": "Kiri Shiratori",
+        "image": "images/Grona.jpg"
     },
     {
-        "name": "",
-        "tank": "",
-        "commander": "",
-        "image": "images/.jpg"
+        "name": "Yogurt Academy",
+        "tank": "Carro Veloce CV.33 II Series L3/33",
+        "commander": "Sofia",
+        "image": "images/Yogurt.jpg"
     },
+    {
+        "name": "Neutral High School",
+        "tank": "-No tank-",
+        "commander": "Senjyu",
+        "image": "images/Natural.jpg"
+    }
 
 
+]
+
+higher_education = [
+    {
+        "name": "All-Stars University Team",
+        "tank": "Centurion Mk.I (A41)",
+        "commander": "Alice Shimada",
+        "image": "images/Stars.jpg" 
+    }
 ]
 
 @app.route("/")
@@ -172,7 +187,8 @@ def home():
     return render_template(
         "index.html",
         main_schools=main_schools,
-        minor_schools=minor_schools
+        minor_schools=minor_schools,
+        higher_education=higher_education
     )
 
 if __name__ == "__main__":
