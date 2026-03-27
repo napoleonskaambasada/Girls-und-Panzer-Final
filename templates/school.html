@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ school.name }} - Academy Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page" style="max-width: 1100px; margin: 40px auto; padding: 20px; font-family: sans-serif;">
+    
+    <nav style="margin-bottom: 30px;">
+        <a href="/" style="color: #ffd166; text-decoration: none; font-weight: bold; font-size: 1.1em;">
+            ← Return to Schools List
+        </a>
+    </nav>
+
+    <header style="border-bottom: 2px solid #444; padding-bottom: 10px; margin-bottom: 30px;">
+        <h1 style="font-size: 3.5em; margin: 0; color: #ffffff;">{{ school.name }}</h1>
+    </header>
+
+    <div class="content-wrapper" style="display: flex; gap: 50px; align-items: flex-start;">
+        
+        <div class="main-content" style="flex: 2;">
+            
+            <section style="margin-bottom: 40px;">
+                <h2 style="color: #ffd166; border-bottom: 1px solid #333;">Overview</h2>
+                <p>{{ school.overview | default("No overview available yet.") }}</p>
+            </section>
+
+            <section style="margin-bottom: 40px;">
+                <h2 style="color: #ffd166; border-bottom: 1px solid #333;">Tactics & Strategy</h2>
+                <p>{{ school.tactics | default("Tactical data restricted or unavailable.") }}</p>
+            </section>
+
+            <section style="margin-bottom: 40px;">
+                <h2 style="color: #ffd166; border-bottom: 1px solid #333;">Weapons & Equipment</h2>
+                <p>{{ school.weapons | default("Standard equipment list pending.") }}</p>
+            </section>
+
+            <section style="margin-bottom: 40px;">
+                <h2 style="color: #ffd166; border-bottom: 1px solid #333;">Notable Characters</h2>
+                <p>{{ school.characters | default("Student roster not updated.") }}</p>
+            </section>
+
+            <section style="margin-bottom: 40px;">
+                <h2 style="color: #ffd166; border-bottom: 1px solid #333;">Trivia</h2>
+                <p>{{ school.trivia | default("No additional facts found.") }}</p>
+            </section>
+
+        </div>
+
+        <aside class="sidebar" style="flex: 1; background: #1e1e26; border: 2px solid #ffd166; border-radius: 12px; padding: 25px; position: sticky; top: 20px;">
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="{{ url_for('static', filename=school.image) }}" 
+                     alt="{{ school.name }} Emblem" 
+                     style="max-width: 100%; border-radius: 8px; border: 1px solid #444;">
+                <h3 style="margin-top: 15px; color: #fff; text-transform: uppercase; letter-spacing: 1px;">Quick Data</h3>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
+
+            <div class="data-point" style="margin-bottom: 15px;">
+                <strong style="color: #ffd166; display: block; font-size: 0.8em; text-transform: uppercase;">Commander</strong>
+                <span style="font-size: 1.2em;">{{ school.commander }}</span>
+            </div>
+
+            <div class="data-point" style="margin-bottom: 15px;">
+                <strong style="color: #ffd166; display: block; font-size: 0.8em; text-transform: uppercase;">Main Tank Type</strong>
+                <span style="font-size: 1.2em;">{{ school.tank }}</span>
+            </div>
+
+        </aside>
+
+    </div>
+</div>
+
+</body>
+</html>

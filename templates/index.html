@@ -11,59 +11,57 @@
 
 <h1>Girls und Panzer</h1>
 
-<!-- MAIN SCHOOLS -->
 <h2>Main Schools</h2>
 <div class="container">
 {% for school in main_schools %}
+<a href="{{ url_for('school_page', id=loop.index0) }}" class="card-link">
 <div class="card">
-
     <div class="img-container">
         <img src="{{ url_for('static', filename=school.image) }}">
     </div>
-
     <h3>{{ school.name }}</h3>
     <p><b>Commander:</b> {{ school.commander }}</p>
     <p><b>Tank:</b> {{ school.tank }}</p>
-
 </div>
+</a>
 {% endfor %}
 </div>
 
-<!-- MINOR SCHOOLS -->
+{% set main_len = main_schools|length %}
 <h2>Minor Schools</h2>
 <div class="container">
 {% for school in minor_schools %}
+{# We add the length of the main_schools list to the current index #}
+<a href="{{ url_for('school_page', id=main_len + loop.index0) }}" class="card-link">
 <div class="card">
-
     <div class="img-container">
         <img src="{{ url_for('static', filename=school.image) }}">
     </div>
-
     <h3>{{ school.name }}</h3>
     <p><b>Commander:</b> {{ school.commander }}</p>
     <p><b>Tank:</b> {{ school.tank }}</p>
-
 </div>
+</a>
 {% else %}
 <p>No minor schools added yet.</p>
 {% endfor %}
 </div>
 
-<!-- HIGHER EDUCATION -->
+{% set minor_len = minor_schools|length %}
 <h2>Higher Education</h2>
 <div class="container">
 {% for school in higher_education %}
+{# We add the length of both previous lists to the current index #}
+<a href="{{ url_for('school_page', id=main_len + minor_len + loop.index0) }}" class="card-link">
 <div class="card">
-
     <div class="img-container">
         <img src="{{ url_for('static', filename=school.image) }}">
     </div>
-
     <h3>{{ school.name }}</h3>
     <p><b>Commander:</b> {{ school.commander }}</p>
     <p><b>Tank:</b> {{ school.tank }}</p>
-
 </div>
+</a>
 {% else %}
 <p>No higher education schools added yet.</p>
 {% endfor %}

@@ -7,7 +7,8 @@ main_schools = [
         "name": "Ōarai Girls Academy",
         "tank": "Panzer IV",
         "commander": "Miho Nishizumi",
-        "image": "images/Oarai.jpg"
+        "image": "images/Oarai.jpg",
+        "overview": "meow"
     },
     {
         "name": "Kuromorimine Girls Academy",
@@ -111,8 +112,8 @@ minor_schools = [
     },
     {
         "name": "Gregor High School",
-        "tank": "Kafka",
-        "commander": "Panzer 38(t)",
+        "tank": "Panzer 38(t)",
+        "commander": "Kafka",
         "image": "images/Gregor.jpg"
     },
     {
@@ -190,6 +191,16 @@ def home():
         minor_schools=minor_schools,
         higher_education=higher_education
     )
+
+@app.route("/school/<int:id>")
+def school_page(id):
+    all_schools = main_schools + minor_schools + higher_education
+
+    try:
+        school = all_schools[id]
+        return render_template("school.html", school=school)
+    except IndexError:
+        return "School not found", 404
 
 if __name__ == "__main__":
     app.run(debug=True)

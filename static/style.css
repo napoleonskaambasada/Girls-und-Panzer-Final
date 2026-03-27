@@ -96,3 +96,76 @@ p {
     box-shadow: 0 0 40px rgba(0,0,0,0.4);
     backdrop-filter: blur(6px);
 }
+
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    text-decoration: none;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+body {
+    background-color: #1a1a24; 
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.page {
+    background-color: #1a1a24;
+}
+
+
+h1, h2, h3 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.8em;
+    padding-bottom: 8px;
+    margin-top: 20px;
+}
+
+
+.sidebar {
+    border-color: #ffd166 !important; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.data-point strong {
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+
+@media (max-width: 800px) {
+    .content-wrapper {
+        flex-direction: column-reverse; 
+    }
+    
+    .sidebar {
+        width: 100%;
+        box-sizing: border-box;
+        position: static !important; 
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a24;
+}
+::-webkit-scrollbar-thumb {
+    background: #ffd166;
+    border-radius: 10px;
+}
