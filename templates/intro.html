@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensha-dō Federation Archive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+        }
+
+        .hero-wrapper {
+            /* Replace 'intro-bg.jpg' with your preferred cinematic image */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url("{{ url_for('static', filename='images/intro-bg.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .title-box {
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            margin: 0;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #ffd166; /* Match your school page yellow */
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .enter-button {
+            margin-top: 40px;
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #ef476f; /* A bold red-pink for the CTA */
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 71, 111, 0.4);
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .enter-button:hover {
+            background-color: #ffd166;
+            color: #121216;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 209, 102, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-wrapper">
+        <div class="title-box">
+            <h1 class="hero-title">All about GUP</h1>
+            <p class="hero-subtitle">Academy Operations & Tactical Archive + Watchparty</p>
+        </div>
+        
+        <a href="{{ url_for('home') }}" class="enter-button">
+            Enter
+        </a>
+    </div>
+
+</body>
+</html>
