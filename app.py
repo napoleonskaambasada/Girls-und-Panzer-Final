@@ -332,6 +332,10 @@ def school_page(id):
         return render_template("school.html", school=school)
     except IndexError:
         return "School not found", 404
+    
+@app.route("/watch")
+def watch():
+    return render_template("watch.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

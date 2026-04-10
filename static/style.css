@@ -124,3 +124,56 @@ h2 {
     from { transform: translateY(30px); opacity: 0; } 
     to { transform: translateY(0); opacity: 1; } 
 }
+
+/* Center everything in the middle of the screen */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+/* Fix the subtitle positioning */
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #ffd166;
+    margin-bottom: 40px; /* Space between text and buttons */
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Button Layout */
+.button-group {
+    display: flex;
+    gap: 25px; /* Space between the two buttons */
+    justify-content: center;
+}
+
+/* Specific Button Colors */
+.academy-btn {
+    background-color: #ef476f; /* Pinkish-Red */
+    box-shadow: 0 0 15px rgba(239, 71, 111, 0.4);
+}
+
+.theater-btn {
+    background-color: #ffd166; /* Yellow */
+    color: #121216 !important; /* Dark text for the yellow button */
+    box-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
+}
+
+/* Make buttons feel like actual buttons */
+.enter-button {
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s, filter 0.2s;
+    min-width: 180px;
+}
+
+.enter-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}

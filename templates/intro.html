@@ -86,14 +86,17 @@
 <body>
 
     <div class="hero-wrapper">
-        <div class="title-box">
-            <h1 class="hero-title">All about GUP</h1>
-            <p class="hero-subtitle">Academy Operations & Tactical Archive + Watchparty</p>
+        <div class="hero-content">
+            <div class="title-box">
+                <h1 class="hero-title">ALL ABOUT GUP</h1>
+                <p class="hero-subtitle">OPERATIONS ARCHIVE + WATCHPARTY</p>
+            </div>
+    
+            <div class="button-group">
+                <a href="{{ url_for('home') }}" class="enter-button academy-btn">ACADEMY LIST</a>
+                <a href="{{ url_for('watch') }}" class="enter-button theater-btn">THEATER</a>
+            </div>
         </div>
-        
-        <a href="{{ url_for('home') }}" class="enter-button">
-            Enter
-        </a>
     </div>
 
 </body>

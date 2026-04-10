@@ -8,24 +8,29 @@
 <body>
 
 <div class="page">
+    <nav style="margin-bottom: 20px;">
+        <a href="{{ url_for('intro') }}" style="color: #ffd166; text-decoration: none; font-weight: bold;">
+            ← Back to Command Centre
+        </a>
+    </nav>
 
-<h1>Girls und Panzer</h1>
+    <h1>Girls und Panzer</h1>
 
-<h2>Main Schools</h2>
-<div class="container">
-{% for school in main_schools %}
-<a href="{{ url_for('school_page', id=loop.index0) }}" class="card-link">
-<div class="card">
-    <div class="img-container">
-        <img src="{{ url_for('static', filename=school.image) }}">
+    <h2>Main Schools</h2>
+    <div class="container">
+    {% for school in main_schools %}
+    <a href="{{ url_for('school_page', id=loop.index0) }}" class="card-link">
+    <div class="card">
+        <div class="img-container">
+            <img src="{{ url_for('static', filename=school.image) }}">
+        </div>
+        <h3>{{ school.name }}</h3>
+        <p><b>Commander:</b> {{ school.commander }}</p>
+        <p><b>Tank:</b> {{ school.tank }}</p>
     </div>
-    <h3>{{ school.name }}</h3>
-    <p><b>Commander:</b> {{ school.commander }}</p>
-    <p><b>Tank:</b> {{ school.tank }}</p>
-</div>
-</a>
-{% endfor %}
-</div>
+    </a>
+    {% endfor %}
+    </div>
 
 {% set main_len = main_schools|length %}
 <h2>Minor Schools</h2>
