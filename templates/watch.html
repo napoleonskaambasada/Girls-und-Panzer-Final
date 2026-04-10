@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Watchparty | Sensha-dō Theater</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page" style="max-width: 1000px;">
+    <nav style="margin-bottom: 20px;">
+        <a href="{{ url_for('intro') }}" style="color: #ffd166; text-decoration: none; font-weight: bold;">
+            ← Back to Command Center
+        </a>
+    </nav>
+
+    <h1>Sensha-dō Briefing Room</h1>
+    
+    <div class="video-container" style="background: #000; border-radius: 15px; border: 2px solid #ffd166; overflow: hidden; aspect-ratio: 16/9; margin-bottom: 30px; box-shadow: 0 0 30px rgba(0,0,0,0.8);">
+        <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://anigo.to/watch/girls-und-panzer-ve54#ep=1" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div class="watch-info" style="text-align: center;">
+        <h2 style="border: none;">Now Playing: Episode 1</h2>
+        <p style="opacity: 0.8;">"Tankery, Here It Is!"</p>
+    </div>
+</div>
+
+</body>
+</html>
