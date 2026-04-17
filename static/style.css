@@ -1,4 +1,3 @@
-/* 1. RESET & BASE */
 * {
     margin: 0;
     padding: 0;
@@ -8,17 +7,17 @@
 html, body {
     width: 100%;
     height: 100%;
-    background-color: #121216; /* Deep dark base */
+    background-color: #121216; 
     color: #e0e0e0;
     font-family: "Segoe UI", Arial, sans-serif;
     overflow-x: hidden;
     line-height: 1.6;
 }
 
-/* 2. INTRO / HERO PAGE (The seamless fix) */
+
 .hero-wrapper {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                url("/static/images/intro-bg.jpg"); /* Ensure path is correct */
+                url("/static/images/intro-bg.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -30,8 +29,6 @@ html, body {
     text-align: center;
 }
 
-/* 3. MAIN DASHBOARD / SCHOOL PAGE CONTAINER */
-/* Only add padding here so it doesn't affect the Intro page */
 .page {
     max-width: 1200px;
     margin: 40px auto;
@@ -41,7 +38,6 @@ html, body {
     box-shadow: 0 0 40px rgba(0,0,0,0.4);
 }
 
-/* 4. CARDS & GRID */
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -81,7 +77,6 @@ html, body {
     object-fit: contain;
 }
 
-/* 5. TYPOGRAPHY */
 h1 {
     text-align: center;
     margin-bottom: 30px;
@@ -107,7 +102,6 @@ h2 {
     color: inherit;
 }
 
-/* 6. SCROLLBAR */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #1a1a24; }
 ::-webkit-scrollbar-thumb { 
@@ -115,7 +109,6 @@ h2 {
     border-radius: 10px; 
 }
 
-/* 7. ANIMATIONS */
 .intro-container { animation: fadeIn 1.5s ease-in; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -125,7 +118,6 @@ h2 {
     to { transform: translateY(0); opacity: 1; } 
 }
 
-/* Center everything in the middle of the screen */
 .hero-content {
     display: flex;
     flex-direction: column;
@@ -135,35 +127,31 @@ h2 {
     width: 100%;
 }
 
-/* Fix the subtitle positioning */
 .hero-subtitle {
     font-size: 1.2rem;
     color: #ffd166;
-    margin-bottom: 40px; /* Space between text and buttons */
+    margin-bottom: 40px; 
     letter-spacing: 2px;
     font-weight: bold;
 }
 
-/* Button Layout */
 .button-group {
     display: flex;
-    gap: 25px; /* Space between the two buttons */
+    gap: 25px; 
     justify-content: center;
 }
 
-/* Specific Button Colors */
 .academy-btn {
-    background-color: #ef476f; /* Pinkish-Red */
+    background-color: #ef476f; 
     box-shadow: 0 0 15px rgba(239, 71, 111, 0.4);
 }
 
 .theater-btn {
-    background-color: #ffd166; /* Yellow */
-    color: #121216 !important; /* Dark text for the yellow button */
+    background-color: #ffd166; 
+    color: #121216 !important; 
     box-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
 }
 
-/* Make buttons feel like actual buttons */
 .enter-button {
     padding: 15px 35px;
     border-radius: 50px;
@@ -176,4 +164,46 @@ h2 {
 .enter-button:hover {
     transform: scale(1.05);
     filter: brightness(1.1);
+}
+
+.theater-button {
+    text-decoration: none;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.theater-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid #333;
+    aspect-ratio: 2/3; 
+    background: #111;
+}
+
+.theater-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.theater-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.theater-button:hover {
+    transform: scale(1.05);
+}
+
+.theater-button:hover .theater-card {
+    border-color: #ffd166;
+    box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
 }

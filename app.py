@@ -311,6 +311,109 @@ higher_education = [
     }
 ]
 
+
+theater_items = {
+    "main": [
+        {"title": "Girls und Panzer (Main Series)", "image": "images/main_series.jpg", "link": "/watch"}
+    ],
+    "specials": [
+        {"title": "This is the Real Anzio Battle!", "image": "images/anzio_ova.jpg", "link": "/theater/anzio"},
+        {"title": "Alice War!", "image": "images/alice_war.jpg", "link": "/theater/alice"},
+        {"title": "Taiyaki War!", "image": "images/taiyaki_war.jpg", "link": "/theater/taiyaki"}
+    ]
+}
+
+main_series_episodes = [
+    {
+        "number": 1, 
+        "title": "Tankery, Here It Is!", 
+        "file": "ep1.mp4", 
+        "desc": "Miho Nishizumi transfers to Oarai Girls Academy to escape Tankery, but the student council has other plans."
+    },
+    {
+        "number": 2, 
+        "title": "Tankery is Real!", 
+        "file": "ep2.mp4", 
+        "desc": "The newly formed teams set out to find the school's abandoned tanks and begin their first practice."
+    },
+    {
+        "number": 3, 
+        "title": "I'm Taking This Match!", 
+        "file": "ep3.mp4", 
+        "desc": "Oarai engages in an exhibition match against the heavy hitters of St. Gloriana Girls' College."
+    },
+    {
+        "number": 4, 
+        "title": "The Commander Does Her Best!", 
+        "file": "ep4.mp4", 
+        "desc": "As the national tournament begins, Oarai faces the Saunders University High School and their overwhelming numbers."
+    },
+    {
+        "number": 5, 
+        "title": "The Sherman Corps!", 
+        "file": "ep5.mp4", 
+        "desc": "The battle against Saunders intensifies as Miho uses clever tactics to counter their radio interception."
+    },
+    {
+        "number": 6, 
+        "title": "The First Round Reaches Its Climax!", 
+        "file": "ep6.mp4", 
+        "desc": "With their backs against the wall, the Ankou team attempts a daring high-stakes maneuver to take down the Saunders flagship."
+    },
+    {
+        "number": 7, 
+        "title": "Next is Anzio!", 
+        "file": "ep7.mp4", 
+        "desc": "While preparing for the next round, the girls take a break to explore the school ship and strengthen their bonds."
+    },
+    {
+        "number": 8, 
+        "title": "Pravda is Here!", 
+        "file": "ep8.mp4", 
+        "desc": "Oarai faces the defending champions, Pravda Girls' High School, in a brutal winter landscape."
+    },
+    {
+        "number": 9, 
+        "title": "Desperate Situation!", 
+        "file": "ep9.mp4", 
+        "desc": "Trapped in a church and surrounded by Pravda's tanks, the Oarai teams must find a way to break the siege before time runs out."
+    },
+    {
+        "number": 10, 
+        "title": "Classmates!", 
+        "file": "ep10.mp4", 
+        "desc": "The finals against Kuromorimine begins. Miho must face her sister, Maho, and the formidable Black Forest Peak doctrine."
+    },
+    {
+        "number": 11, 
+        "title": "The Battle is Fierce!", 
+        "file": "ep11.mp4", 
+        "desc": "Oarai struggles against the heavy German armor of Kuromorimine, leading to a dangerous rescue mission in the river."
+    },
+    {
+        "number": 12, 
+        "title": "The Battle We Can't Withdraw From!", 
+        "file": "ep12.mp4", 
+        "desc": "The final showdown. In a city-wide chase, Miho and Maho engage in a one-on-one duel to decide the fate of Oarai Academy."
+    }
+]
+
+@app.route("/theater")
+def theater():
+    return render_template("theater.html", items=theater_items)
+
+@app.route("/theater/anzio")
+def anzio():
+    return render_template("ova1.html")
+
+@app.route("/theater/alice")
+def alice():
+    return render_template("ova2.html")
+
+@app.route("/theater/taiyaki")
+def taiyaki():
+    return render_template("ova3.html")
+
 @app.route("/")
 def intro():
     return render_template("intro.html")
@@ -333,9 +436,10 @@ def school_page(id):
     except IndexError:
         return "School not found", 404
     
+
 @app.route("/watch")
 def watch():
-    return render_template("watch.html")
+    return render_template("watch.html", episodes=main_series_episodes)
 
 if __name__ == "__main__":
     app.run(debug=True)
