@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Theater - Girls und Panzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page" style="max-width: 1000px; margin: auto; padding: 40px 20px;">
+    
+    <nav style="margin-bottom: 20px;">
+        <a href="/" style="color:#ffd166; text-decoration: none; font-weight: bold;">← BACK TO HOME</a>
+    </nav>
+
+    <header style="text-align: center; margin-bottom: 50px;">
+        <h1 style="font-size: 3em; color: #ffd166;">THEATER</h1>
+        <p>Select a series or special episode to view details.</p>
+    </header>
+
+    <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px;">Main Series</h2>
+    <div class="theater-grid" style="display: flex; justify-content: center; margin-bottom: 60px;">
+        {% for item in items.main %}
+        <a href="{{ item.link }}" class="theater-button">
+            <div class="theater-card">
+                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
+                <div class="theater-overlay">
+                    <span>{{ item.title }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px;">Specials & OVAs</h2>
+    <div class="theater-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        {% for item in items.specials %}
+        <a href="{{ item.link }}" class="theater-button">
+            <div class="theater-card">
+                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
+                <div class="theater-overlay">
+                    <span>{{ item.title }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>
