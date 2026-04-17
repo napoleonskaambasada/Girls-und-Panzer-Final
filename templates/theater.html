@@ -32,7 +32,7 @@
     </div>
 
     <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px;">Specials & OVAs</h2>
-    <div class="theater-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    <div class="theater-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 60px;">
         {% for item in items.specials %}
         <a href="{{ item.link }}" class="theater-button">
             <div class="theater-card">
@@ -45,7 +45,74 @@
         {% endfor %}
     </div>
 
-</div>
+    <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--primary-pink); text-align: center;">Das Finale Series</h2>
+    <div class="theater-grid" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 60px;">
+        {% for item in items.finale %}
+        <a href="{{ item.link }}" class="theater-button">
+            <div class="theater-card" style="width: 250px;">
+                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
+                <div class="theater-overlay">
+                    <span>{{ item.title }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 
-</body>
+    <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--primary-pink); text-align: center; margin-top: 50px;">Feature Films</h2>
+    <div class="theater-grid" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 60px;">
+        {% for item in items.movies %}
+        <a href="{{ item.link }}" class="theater-button">
+            <div class="theater-card" style="width: 250px;">
+                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
+                <div class="theater-overlay">
+                    <span>{{ item.title }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--primary-pink); text-align: center; margin-top: 50px;">Season 1 Specials</h2>
+    <div class="theater-grid" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 60px;">
+        <a href="/theater/season1-specials" class="theater-button">
+            <div class="theater-card" style="width: 250px;">
+                <img src="{{ url_for('static', filename='images/s1_specials.jpg') }}" alt="Season 1 OVAs">
+                <div class="theater-overlay">
+                    <span>First Season OVAs</span>
+                </div>
+            </div>
+        </a>
+    </div> <h2 style="border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--primary-pink); text-align: center; margin-top: 50px;">Das Finale Specials</h2>
+    <div style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; flex-wrap: wrap; margin-bottom: 60px;">
+        
+        <a href="/theater/radish-war" style="text-decoration: none;">
+            <div class="theater-card" style="width: 250px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333;">
+                <img src="{{ url_for('static', filename='images/ova_radish.jpg') }}" alt="Radish War" style="width: 100%; height: 350px; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 15px; text-align: center;">
+                    <span style="color: white; font-weight: bold;">Radish War!</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/theater/daikon-war" style="text-decoration: none;">
+            <div class="theater-card" style="width: 250px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333;">
+                <img src="{{ url_for('static', filename='images/ova_daikon.jpg') }}" alt="Daikon War" style="width: 100%; height: 350px; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 15px; text-align: center;">
+                    <span style="color: white; font-weight: bold;">Daikon War!</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/theater/jotunheim" style="text-decoration: none;">
+            <div class="theater-card" style="width: 250px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333;">
+                <img src="{{ url_for('static', filename='images/ova_jotunheim.jpg') }}" alt="Jotunheim" style="width: 100%; height: 350px; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 15px; text-align: center;">
+                    <span style="color: white; font-weight: bold;">The Jotunheim Trio</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div> </body>
 </html>
