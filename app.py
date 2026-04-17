@@ -433,13 +433,13 @@ finale_episodes = [
     },
     {
         "number": 5, 
-        "title": "Das Finale - Part 5", 
+        "title": "Das Finale - Part 5 (~ 2026)", 
         "file": "finale5.mp4", 
         "desc": "The semifinals reach a boiling point as the remaining schools fight for a spot in the ultimate championship match."
     },
     {
         "number": 6, 
-        "title": "Das Finale - Part 6", 
+        "title": "Das Finale - Part 6 (TBA)", 
         "file": "finale6.mp4", 
         "desc": "The grand finale of the Sensha-do saga. One final battle to decide the future of the academy and the legend of the Nishizumi style."
     }
