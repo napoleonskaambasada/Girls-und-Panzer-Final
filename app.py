@@ -398,6 +398,102 @@ main_series_episodes = [
     }
 ]
 
+theater_items["finale"] = [
+    {"title": "Girls und Panzer: das Finale", "image": "images/finale_poster.jpg", "link": "/theater/finale"}
+]
+
+theater_items["movies"] = [
+    {"title": "Der Film", "image": "images/der_film.jpg", "link": "/theater/movie"}
+]
+
+finale_episodes = [
+    {
+        "number": 1, 
+        "title": "Das Finale - Part 1", 
+        "file": "finale1.mp4", 
+        "desc": "Oarai Academy faces a new crisis, leading to the creation of the Shark Team and a battle against BC Freedom."
+    },
+    {
+        "number": 2, 
+        "title": "Das Finale - Part 2", 
+        "file": "finale2.mp4", 
+        "desc": "The battle against BC Freedom concludes, and the winter tournament continues against the spirited Chi-Ha-Tan Academy."
+    },
+    {
+        "number": 3, 
+        "title": "Das Finale - Part 3", 
+        "file": "finale3.mp4", 
+        "desc": "The jungle warfare reaches its peak! Afterward, Oarai prepares for a chilling match against Jatkosota High School."
+    },
+    {
+        "number": 4, 
+        "title": "Das Finale - Part 4", 
+        "file": "finale4.mp4", 
+        "desc": "Trapped in the snow, Oarai must fight without their commander after a devastating ambush by the White Witch."
+    },
+    {
+        "number": 5, 
+        "title": "Das Finale - Part 5", 
+        "file": "finale5.mp4", 
+        "desc": "The semifinals reach a boiling point as the remaining schools fight for a spot in the ultimate championship match."
+    },
+    {
+        "number": 6, 
+        "title": "Das Finale - Part 6", 
+        "file": "finale6.mp4", 
+        "desc": "The grand finale of the Sensha-do saga. One final battle to decide the future of the academy and the legend of the Nishizumi style."
+    }
+]
+
+season1_ovas = [
+    {"number": 1, "title": "Water War", "file": "s1_ova1.mp4", "desc": "The girls pick out swimsuits and enjoy a day at the pool."},
+    {"number": 2, "title": "Survival War", "file": "s1_ova2.mp4", "desc": "The teams go camping and learn about field rations."},
+    {"number": 3, "title": "School Ship War", "file": "s1_ova3.mp4", "desc": "A deep dive into how the massive school ships actually function."},
+    {"number": 4, "title": "Anglerfish War", "file": "s1_ova4.mp4", "desc": "The girls practice the legendary Anglerfish Dance."},
+    {"number": 5, "title": "Snow War", "file": "s1_ova5.mp4", "desc": "Yukari and Erwin go on a scouting mission in the snow."},
+    {"number": 6, "title": "Banquet War", "file": "s1_ova6.mp4", "desc": "A celebration following the tournament victory."}
+]
+
+finale_ovas = [
+    {
+        "number": 1, 
+        "title": "Radish War!", 
+        "file": "finale_ova2.mp4", 
+        "desc": "The Das Finale Part 2 special featuring the continuation of the peaceful yet competitive school life."
+    },
+    {
+        "number": 2, 
+        "title": "Daikon War!", 
+        "file": "finale_ova3.mp4", 
+        "desc": "The Das Finale Part 3 special. Agricultural conflict reaches new heights at Oarai."
+    },
+    {
+        "number": 3, 
+        "title": "The Jotunheim Trio", 
+        "file": "finale_ova4.mp4", 
+        "desc": "The Das Finale Part 4 special focusing on the mysterious trio from Jatkosota High School."
+    }
+]
+
+@app.route("/theater/season1-specials")
+def s1_specials():
+    return render_template("specials.html", episodes=season1_ovas)
+
+@app.route("/theater/radish-war")
+def radish_war():
+    return render_template("ova_radish.html", title="Radish War!", file="finale_ova2.mp4", 
+                           desc="The Das Finale Part 2 special featuring the continuation of the peaceful yet competitive school life at Oarai.")
+
+@app.route("/theater/daikon-war")
+def daikon_war():
+    return render_template("ova_daikon.html", title="Daikon War!", file="finale_ova3.mp4", 
+                           desc="The Das Finale Part 3 special. Agricultural conflict and tankery practice reach new heights.")
+
+@app.route("/theater/jotunheim")
+def jotunheim():
+    return render_template("ova_jotunheim.html", title="The Jotunheim Trio", file="finale_ova4.mp4", 
+                           desc="The Das Finale Part 4 special focusing on the mysterious and talented trio from Jatkosota High School.")
+
 @app.route("/theater")
 def theater():
     return render_template("theater.html", items=theater_items)
@@ -413,6 +509,19 @@ def alice():
 @app.route("/theater/taiyaki")
 def taiyaki():
     return render_template("ova3.html")
+
+@app.route("/theater/finale")
+def finale_page():
+    return render_template("dasfinale.html", episodes=finale_episodes)
+
+@app.route("/theater/movie")
+def movie():
+    movie_data = {
+        "title": "Girls und Panzer der Film",
+        "file": "der_film.mp4",
+        "desc": "Oarai Academy faces decommission once again. To save their school, they must team up with their former rivals to face a formidable University All-Stars team led by the prodigy Alice Shimada."
+    }
+    return render_template("movie.html", movie=movie_data)
 
 @app.route("/")
 def intro():
