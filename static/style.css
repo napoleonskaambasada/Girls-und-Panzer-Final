@@ -207,3 +207,58 @@ h2 {
     border-color: #ffd166;
     box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
 }
+
+.theater-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.theater-card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 10px 20px rgba(255, 133, 161, 0.4); 
+    border-color: #ff85a1;
+}
+
+
+/* Ensure the link doesn't add weird spacing */
+.theater-button {
+    text-decoration: none;
+    display: inline-block;
+    line-height: 0; /* Kills text-related spacing around the card */
+}
+
+.theater-card {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: transparent; /* Prevents dark background leaking through */
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+    border: none; /* Removing the border often fixes the "line" illusion */
+}
+
+/* The Hover Effect (Leaning in/Zooming) */
+.theater-card:hover {
+    transform: scale(1.05) translateY(-5px); 
+    box-shadow: 0 15px 30px rgba(255, 133, 161, 0.4);
+}
+
+.theater-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* The Gradient Overlay */
+.theater-card .theater-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    padding: 20px 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+

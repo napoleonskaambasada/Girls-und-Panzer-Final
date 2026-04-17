@@ -481,18 +481,24 @@ def s1_specials():
 
 @app.route("/theater/radish-war")
 def radish_war():
-    return render_template("ova_radish.html", title="Radish War!", file="finale_ova2.mp4", 
-                           desc="The Das Finale Part 2 special featuring the continuation of the peaceful yet competitive school life at Oarai.")
+    return render_template("ova_radish.html", 
+                           title="Radish War!", 
+                           file="finale_ova2.mp4", 
+                           desc="The Das Finale Part 2 special.")
 
 @app.route("/theater/daikon-war")
 def daikon_war():
-    return render_template("ova_daikon.html", title="Daikon War!", file="finale_ova3.mp4", 
-                           desc="The Das Finale Part 3 special. Agricultural conflict and tankery practice reach new heights.")
+    return render_template("ova_daikon.html", 
+                           title="Daikon War!", 
+                           file="finale_ova3.mp4", 
+                           desc="The Das Finale Part 3 special.")
 
 @app.route("/theater/jotunheim")
 def jotunheim():
-    return render_template("ova_jotunheim.html", title="The Jotunheim Trio", file="finale_ova4.mp4", 
-                           desc="The Das Finale Part 4 special focusing on the mysterious and talented trio from Jatkosota High School.")
+    return render_template("ova_jotunheim.html", 
+                           title="The Jotunheim Trio", 
+                           file="finale_ova4.mp4", 
+                           desc="The Das Finale Part 4 special.")
 
 @app.route("/theater")
 def theater():
