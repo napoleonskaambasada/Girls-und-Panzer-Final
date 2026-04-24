@@ -549,6 +549,7 @@ def school_page(id):
 @app.route("/watch")
 def watch():
     return render_template("watch.html", episodes=main_series_episodes)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
