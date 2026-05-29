@@ -556,5 +556,9 @@ def school_page(id):
 def watch():
     return render_template("watch.html", episodes=main_series_episodes)
 
+@app.route("/credits")
+def credits_page():
+    return render_template("credits.html")
+
 if __name__ == "__main__":
     app.run(debug=True)

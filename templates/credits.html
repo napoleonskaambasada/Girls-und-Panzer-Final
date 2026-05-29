@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits - Girls und Panzer Viewer</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --accent-color: #ff6b6b;
+            --text-color: #ffffff;
+            --text-muted: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .credits-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .credit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .credit-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .role {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .name {
+            color: var(--text-muted);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="credits-container">
+    <h1>Project Credits</h1>
+
+    <!-- Development Team -->
+    <div class="section">
+        <h2>Development Team</h2>
+        <div class="credit-grid">
+            <div class="credit-item">
+                <span class="role">Lead Developer</span>
+                <span class="name">Ateyx @at_eyx</span>
+            </div>
+            <div class="credit-item">
+                <span class="role">UI/UX Design</span>
+                <span class="name">Ateyx @at_eyx</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assets & Data Sources -->
+    <div class="section">
+        <h2>Assets & Inspiration</h2>
+        <div class="credit-grid">
+            <div class="credit-item">
+                <span class="role">Original Work</span>
+                <span class="name">Actas / Girls und Panzer Projekt</span>
+            </div>
+            <div class="credit-item">
+                <span class="role">Data & Lore Reference</span>
+                <span class="name">GuP Fandom Wiki Community</span>
+            </div>
+            <div class="credit-item">
+                <span class="role">Image Assets</span>
+                <span class="name">Official Promotional Art / Captures</span>
+            </div>
+            <div class="credit-item">
+                <span class="role">Framework</span>
+                <span class="name">Flask (Python) & Jinja Templates</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Special Thanks -->
+    <div class="section">
+        <h2>Special Thanks</h2>
+        <p style="color: var(--text-muted); line-height: 1.6;">
+            Special thanks to the entire anime and tank enthusiast community for maintaining such detailed archives of fictional school lore, tank configurations, and strategy breakdowns. Panzerwagen vor!
+        </p>
+    </div>
+
+    <div class="footer-note">
+        <p><a href="{{ url_for('intro') }}" style="font-size: 1.2rem; font-weight: bold; padding: 10px 20px; border: 1px solid var(--accent-color); border-radius: 4px; background: rgba(255,107,107,0.1); transition: all 0.3s ease;">← RETURN TO ARCHIVE</a></p>
+        <p style="margin-top: 30px;">&copy; 2026 - Fan-made Project. All rights reserved to their respective owners.</p>
+    </div>
+</div>
+
+</body>
+</html>
