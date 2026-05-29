@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session, jsonify
 
 app = Flask(__name__)
+# A secret key is required by Flask to encrypt cookies securely for sessions
+app.secret_key = 'sensha_do_secret_gold_vault_key'
 
 main_schools = [
     {
@@ -105,7 +107,6 @@ main_schools = [
     }
 ]
 
- 
 minor_schools = [
     {
         "name": "Maginot Girls' Academy",
@@ -236,7 +237,7 @@ minor_schools = [
         "overview": "A Myanmar-themed school (formerly Burma) that emphasizes spiritual discipline and endurance. They are often seen as the 'gentle' school, but they possess a quiet, unbreakable resolve.",
         "tactics": "They use 'Jungle Ghost' tactics, utilizing heavy camouflage and silent movement to get within point-blank range of the enemy before striking.",
         "weapons": "Japanese-made light tanks used during the Burma campaign, specifically the Type 95 Ha-Go and Type 97 Chi-Ha.",
-        "characters": "Commander Aung, a calm and meditative leader who rarely raises her voice.",
+        "characters": "Commander Aung, a calm and meditative leader who revolves around her quiet perspective.",
         "trivia": "Tategoto means 'Harp' in Japanese, a reference to the film 'The Burmese Harp.' The students are known for playing music to relax before a match."
     },
     {
@@ -294,7 +295,6 @@ minor_schools = [
         "characters": "Commander Senjyu, a fair-minded and observant leader who is often called upon to judge disputes between schools.",
         "trivia": "Because of their neutrality, their Academy Ship is considered a safe haven where students from rival schools can meet and socialize without conflict."
     }
-
 ]
 
 higher_education = [
@@ -311,7 +311,6 @@ higher_education = [
     }
 ]
 
-
 theater_items = {
     "main": [
         {"title": "Girls und Panzer (Main Series)", "image": "images/main_series.jpg", "link": "/watch"}
@@ -323,79 +322,20 @@ theater_items = {
     ]
 }
 
+# Added explicit string keys 'id' and numerical costs 'cost' to each dictionary module object
 main_series_episodes = [
-    {
-        "number": 1, 
-        "title": "Tankery, Here It Is!", 
-        "file": "ep1.mp4", 
-        "desc": "Miho Nishizumi transfers to Oarai Girls Academy to escape Tankery, but the student council has other plans."
-    },
-    {
-        "number": 2, 
-        "title": "Tankery is Real!", 
-        "file": "ep2.mp4", 
-        "desc": "The newly formed teams set out to find the school's abandoned tanks and begin their first practice."
-    },
-    {
-        "number": 3, 
-        "title": "I'm Taking This Match!", 
-        "file": "ep3.mp4", 
-        "desc": "Oarai engages in an exhibition match against the heavy hitters of St. Gloriana Girls' College."
-    },
-    {
-        "number": 4, 
-        "title": "The Commander Does Her Best!", 
-        "file": "ep4.mp4", 
-        "desc": "As the national tournament begins, Oarai faces the Saunders University High School and their overwhelming numbers."
-    },
-    {
-        "number": 5, 
-        "title": "The Sherman Corps!", 
-        "file": "ep5.mp4", 
-        "desc": "The battle against Saunders intensifies as Miho uses clever tactics to counter their radio interception."
-    },
-    {
-        "number": 6, 
-        "title": "The First Round Reaches Its Climax!", 
-        "file": "ep6.mp4", 
-        "desc": "With their backs against the wall, the Ankou team attempts a daring high-stakes maneuver to take down the Saunders flagship."
-    },
-    {
-        "number": 7, 
-        "title": "Next is Anzio!", 
-        "file": "ep7.mp4", 
-        "desc": "While preparing for the next round, the girls take a break to explore the school ship and strengthen their bonds."
-    },
-    {
-        "number": 8, 
-        "title": "Pravda is Here!", 
-        "file": "ep8.mp4", 
-        "desc": "Oarai faces the defending champions, Pravda Girls' High School, in a brutal winter landscape."
-    },
-    {
-        "number": 9, 
-        "title": "Desperate Situation!", 
-        "file": "ep9.mp4", 
-        "desc": "Trapped in a church and surrounded by Pravda's tanks, the Oarai teams must find a way to break the siege before time runs out."
-    },
-    {
-        "number": 10, 
-        "title": "Classmates!", 
-        "file": "ep10.mp4", 
-        "desc": "The finals against Kuromorimine begins. Miho must face her sister, Maho, and the formidable Black Forest Peak doctrine."
-    },
-    {
-        "number": 11, 
-        "title": "The Battle is Fierce!", 
-        "file": "ep11.mp4", 
-        "desc": "Oarai struggles against the heavy German armor of Kuromorimine, leading to a dangerous rescue mission in the river."
-    },
-    {
-        "number": 12, 
-        "title": "The Battle We Can't Withdraw From!", 
-        "file": "ep12.mp4", 
-        "desc": "The final showdown. In a city-wide chase, Miho and Maho engage in a one-on-one duel to decide the fate of Oarai Academy."
-    }
+    {"id": "ep1", "cost": 0, "number": 1, "title": "Tankery, Here It Is!", "file": "ep1.mp4", "desc": "Miho Nishizumi transfers to Oarai Girls Academy to escape Tankery, but the student council has other plans."},
+    {"id": "ep2", "cost": 100, "number": 2, "title": "Tankery is Real!", "file": "ep2.mp4", "desc": "The newly formed teams set out to find the school's abandoned tanks and begin their first practice."},
+    {"id": "ep3", "cost": 100, "number": 3, "title": "I'm Taking This Match!", "file": "ep3.mp4", "desc": "Oarai engages in an exhibition match against the heavy hitters of St. Gloriana Girls' College."},
+    {"id": "ep4", "cost": 100, "number": 4, "title": "The Commander Does Her Best!", "file": "ep4.mp4", "desc": "As the national tournament begins, Oarai faces the Saunders University High School and their overwhelming numbers."},
+    {"id": "ep5", "cost": 100, "number": 5, "title": "The Sherman Corps!", "file": "ep5.mp4", "desc": "The battle against Saunders intensifies as Miho uses clever tactics to counter their radio interception."},
+    {"id": "ep6", "cost": 100, "number": 6, "title": "The First Round Reaches Its Climax!", "file": "ep6.mp4", "desc": "With their backs against the wall, the Ankou team attempts a daring high-stakes maneuver to take down the Saunders flagship."},
+    {"id": "ep7", "cost": 100, "number": 7, "title": "Next is Anzio!", "file": "ep7.mp4", "desc": "While preparing for the next round, the girls take a break to explore the school ship and strengthen their bonds."},
+    {"id": "ep8", "cost": 100, "number": 8, "title": "Pravda is Here!", "file": "ep8.mp4", "desc": "Oarai faces the defending champions, Pravda Girls' High School, in a brutal winter landscape."},
+    {"id": "ep9", "cost": 100, "number": 9, "title": "Desperate Situation!", "file": "ep9.mp4", "desc": "Trapped in a church and surrounded by Pravda's tanks, the Oarai teams must find a way to break the siege before time runs out."},
+    {"id": "ep10", "cost": 100, "number": 10, "title": "Classmates!", "file": "ep10.mp4", "desc": "The finals against Kuromorimine begins. Miho must face her sister, Maho, and the formidable Black Forest Peak doctrine."},
+    {"id": "ep11", "cost": 100, "number": 11, "title": "The Battle is Fierce!", "file": "ep11.mp4", "desc": "Oarai struggles against the heavy German armor of Kuromorimine, leading to a dangerous rescue mission in the river."},
+    {"id": "ep12", "cost": 100, "number": 12, "title": "The Battle We Can't Withdraw From!", "file": "ep12.mp4", "desc": "The final showdown. In a city-wide chase, Miho and Maho engage in a one-on-one duel to decide the fate of Oarai Academy."}
 ]
 
 theater_items["finale"] = [
@@ -407,42 +347,12 @@ theater_items["movies"] = [
 ]
 
 finale_episodes = [
-    {
-        "number": 1, 
-        "title": "Das Finale - Part 1", 
-        "file": "finale1.mp4", 
-        "desc": "Oarai Academy faces a new crisis, leading to the creation of the Shark Team and a battle against BC Freedom."
-    },
-    {
-        "number": 2, 
-        "title": "Das Finale - Part 2", 
-        "file": "finale2.mp4", 
-        "desc": "The battle against BC Freedom concludes, and the winter tournament continues against the spirited Chi-Ha-Tan Academy."
-    },
-    {
-        "number": 3, 
-        "title": "Das Finale - Part 3", 
-        "file": "finale3.mp4", 
-        "desc": "The jungle warfare reaches its peak! Afterward, Oarai prepares for a chilling match against Jatkosota High School."
-    },
-    {
-        "number": 4, 
-        "title": "Das Finale - Part 4", 
-        "file": "finale4.mp4", 
-        "desc": "Trapped in the snow, Oarai must fight without their commander after a devastating ambush by the White Witch."
-    },
-    {
-        "number": 5, 
-        "title": "Das Finale - Part 5 (~ 2026)", 
-        "file": "finale5.mp4", 
-        "desc": "The semifinals reach a boiling point as the remaining schools fight for a spot in the ultimate championship match."
-    },
-    {
-        "number": 6, 
-        "title": "Das Finale - Part 6 (TBA)", 
-        "file": "finale6.mp4", 
-        "desc": "The grand finale of the Sensha-do saga. One final battle to decide the future of the academy and the legend of the Nishizumi style."
-    }
+    {"number": 1, "title": "Das Finale - Part 1", "file": "finale1.mp4", "desc": "Oarai Academy faces a new crisis, leading to the creation of the Shark Team and a battle against BC Freedom."},
+    {"number": 2, "title": "Das Finale - Part 2", "file": "finale2.mp4", "desc": "The battle against BC Freedom concludes, and the winter tournament continues against the spirited Chi-Ha-Tan Academy."},
+    {"number": 3, "title": "Das Finale - Part 3", "file": "finale3.mp4", "desc": "The jungle warfare reaches its peak! Afterward, Oarai prepares for a chilling match against Jatkosota High School."},
+    {"number": 4, "title": "Das Finale - Part 4", "file": "finale4.mp4", "desc": "Trapped in the snow, Oarai must fight without their commander after a devastating ambush by the White Witch."},
+    {"number": 5, "title": "Das Finale - Part 5 (~ 2026)", "file": "finale5.mp4", "desc": "The semifinals reach a boiling point as the remaining schools fight for a spot in the ultimate championship match."},
+    {"number": 6, "title": "Das Finale - Part 6 (TBA)", "file": "finale6.mp4", "desc": "The grand finale of the Sensha-do saga. One final battle to decide the future of the academy and the legend of the Nishizumi style."}
 ]
 
 season1_ovas = [
@@ -455,25 +365,44 @@ season1_ovas = [
 ]
 
 finale_ovas = [
-    {
-        "number": 1, 
-        "title": "Radish War!", 
-        "file": "finale_ova2.mp4", 
-        "desc": "The Das Finale Part 2 special featuring the continuation of the peaceful yet competitive school life."
-    },
-    {
-        "number": 2, 
-        "title": "Daikon War!", 
-        "file": "finale_ova3.mp4", 
-        "desc": "The Das Finale Part 3 special. Agricultural conflict reaches new heights at Oarai."
-    },
-    {
-        "number": 3, 
-        "title": "The Jotunheim Trio", 
-        "file": "finale_ova4.mp4", 
-        "desc": "The Das Finale Part 4 special focusing on the mysterious trio from Jatkosota High School."
-    }
+    {"number": 1, "title": "Radish War!", "file": "finale_ova2.mp4", "desc": "The Das Finale Part 2 special featuring the continuation of the peaceful yet competitive school life."},
+    {"number": 2, "title": "Daikon War!", "file": "finale_ova3.mp4", "desc": "The Das Finale Part 3 special. Agricultural conflict reaches new heights at Oarai."},
+    {"number": 3, "title": "The Jotunheim Trio", "file": "finale_ova4.mp4", "desc": "The Das Finale Part 4 special focusing on the mysterious trio from Jatkosota High School."}
 ]
+
+# Synchronized Helper function ensuring gold arrays setup correctly
+def check_and_seed_user_wallet():
+    if 'gold' not in session:
+        session['gold'] = 50  # Starting gold capital balance 
+    if 'unlocked_episodes' not in session:
+        session['unlocked_episodes'] = ['ep1']  # Episode 1 free by default
+
+# API Route: Action simulator modifying state parameters
+@app.route("/api/earn-gold", methods=["POST"])
+def earn_gold():
+    check_and_seed_user_wallet()
+    session['gold'] += 50
+    session.modified = True
+    return jsonify({"success": True, "new_gold_balance": session['gold']})
+
+# API Route: Processes asset unlocking purchases
+@app.route("/api/unlock-episode", methods=["POST"])
+def unlock_episode():
+    check_and_seed_user_wallet()
+    payload = request.get_json() or {}
+    ep_id = payload.get("episode_id")
+    cost = int(payload.get("cost", 100))
+
+    if session['gold'] < cost:
+        return jsonify({"success": False, "error": "Insufficient Gold! Perform more actions."})
+        
+    if ep_id in session['unlocked_episodes']:
+        return jsonify({"success": False, "error": "This video file asset is already unlocked!"})
+
+    session['gold'] -= cost
+    session['unlocked_episodes'].append(ep_id)
+    session.modified = True
+    return jsonify({"success": True, "new_gold_balance": session['gold']})
 
 @app.route("/theater/season1-specials")
 def s1_specials():
@@ -481,24 +410,15 @@ def s1_specials():
 
 @app.route("/theater/radish-war")
 def radish_war():
-    return render_template("ova_radish.html", 
-                           title="Radish War!", 
-                           file="finale_ova2.mp4", 
-                           desc="The Das Finale Part 2 special.")
+    return render_template("ova_radish.html", title="Radish War!", file="finale_ova2.mp4", desc="The Das Finale Part 2 special.")
 
 @app.route("/theater/daikon-war")
 def daikon_war():
-    return render_template("ova_daikon.html", 
-                           title="Daikon War!", 
-                           file="finale_ova3.mp4", 
-                           desc="The Das Finale Part 3 special.")
+    return render_template("ova_daikon.html", title="Daikon War!", file="finale_ova3.mp4", desc="The Das Finale Part 3 special.")
 
 @app.route("/theater/jotunheim")
 def jotunheim():
-    return render_template("ova_jotunheim.html", 
-                           title="The Jotunheim Trio", 
-                           file="finale_ova4.mp4", 
-                           desc="The Das Finale Part 4 special.")
+    return render_template("ova_jotunheim.html", title="The Jotunheim Trio", file="finale_ova4.mp4", desc="The Das Finale Part 4 special.")
 
 @app.route("/theater")
 def theater():
@@ -550,11 +470,17 @@ def school_page(id):
         return render_template("school.html", school=school)
     except IndexError:
         return "School not found", 404
-    
 
 @app.route("/watch")
 def watch():
-    return render_template("watch.html", episodes=main_series_episodes)
+    check_and_seed_user_wallet()
+    return render_template(
+        "watch.html", 
+        episodes=main_series_episodes,
+        gold=session['gold'],
+        unlocked=session['unlocked_episodes']
+    )
+
 
 @app.route("/credits")
 def credits_page():

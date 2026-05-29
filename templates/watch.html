@@ -8,6 +8,17 @@
 
 <div class="page" style="max-width: 1200px; margin: auto; padding: 20px;">
     
+    <!-- Gold System Tracker Dashboard Hub -->
+    <div class="gold-hud-container" style="background: #16161d; border: 2px solid #ffd166; border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(255, 209, 102, 0.15);">
+        <div style="font-size: 1.3rem; font-weight: bold; color: #ffd166; display: flex; align-items: center; gap: 8px;">
+            <span>🪙 Balance:</span>
+            <span id="global-gold-counter">{{ gold }}</span><span>g</span>
+        </div>
+        <button onclick="performDrillAction()" style="background: linear-gradient(135deg, #06d6a0, #04a57a); border: none; padding: 10px 20px; color: white; border-radius: 30px; font-weight: bold; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            ✊ Complete Match Drill (+50g)
+        </button>
+    </div>
+
     <nav style="margin-bottom: 20px;">
         <a href="/theater" style="color:var(--primary-pink); text-decoration: none; font-weight: bold;">← Back to Theater</a>
     </nav>
@@ -34,14 +45,31 @@
             <h3 style="border-bottom: 2px solid var(--accent-magenta); padding-bottom: 10px; margin-bottom: 15px;">Episode Selection</h3>
             <div class="ep-list" style="max-height: 500px; overflow-y: auto; padding-right: 5px;">
                 {% for ep in episodes %}
-                <a href="javascript:void(0);" 
-                   class="ep-item"
-                   data-file="{{ url_for('static', filename='videos/' + ep.file) }}" 
-                   data-title="Episode {{ ep.number }} - {{ ep.title }}"
-                   data-desc="{{ ep.desc }}"
-                   style="display: block; padding: 12px; color: white; text-decoration: none; border-radius: 8px; margin-bottom: 8px; background: #222; transition: 0.3s;">
-                    <b style="color: var(--primary-pink);">{{ ep.number }}.</b> {{ ep.title }}
-                </a>
+                    <!-- Check state tracking parameters -->
+                    {% set is_unlocked = ep.id in unlocked %}
+                    
+                    {% if is_unlocked %}
+                        <!-- Render standard playback hyperlink nodes -->
+                        <a href="javascript:void(0);" 
+                           class="ep-item current-unlocked-row"
+                           data-file="{{ url_for('static', filename='videos/' + ep.file) }}" 
+                           data-title="Episode {{ ep.number }} - {{ ep.title }}"
+                           data-desc="{{ ep.desc }}"
+                           style="display: block; padding: 12px; color: white; text-decoration: none; border-radius: 8px; margin-bottom: 8px; background: #222; transition: 0.3s; border-left: none;">
+                            <b style="color: var(--primary-pink);">{{ ep.number }}.</b> {{ ep.title }}
+                        </a>
+                    {% else %}
+                        <!-- Render interactive purchase node interfaces -->
+                        <div class="locked-ep-container" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; margin-bottom: 8px; background: #1a1a24; border: 1px dashed rgba(239, 71, 111, 0.4); opacity: 0.85;">
+                            <div style="font-size: 0.95rem; color: #8c8c9e;">
+                                <b>{{ ep.number }}.</b> <span style="filter: blur(2.5px); pointer-events: none; user-select: none;">{{ ep.title }}</span>
+                            </div>
+                            <!-- FIXED LINE BELOW: Wrapped cost in single quotes to satisfy IDE syntax checking -->
+                            <button onclick="requestUnlockAsset('{{ ep.id }}', '{{ ep.cost }}')" style="background: #ef476f; color: white; border: none; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s;">
+                                Unlock {{ ep.cost }}g
+                            </button>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -75,6 +103,35 @@
             this.style.borderLeft = '4px solid #ff85a1';
         });
     });
+
+    // JavaScript Actions supporting tab-safe server side actions
+    function performDrillAction() {
+        fetch('/api/earn-gold', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                document.getElementById('global-gold-counter').innerText = data.new_gold_balance;
+            }
+        });
+    }
+
+    function requestUnlockAsset(episodeId, costAmount) {
+        fetch('/api/unlock-episode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ episode_id: episodeId, cost: costAmount })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                document.getElementById('global-gold-counter').innerText = data.new_gold_balance;
+                // Force hot-reload to restructure Jinja compilation blocks automatically
+                window.location.reload();
+            } else {
+                alert(data.error);
+            }
+        });
+    }
 </script>
 
 </body>
