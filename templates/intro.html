@@ -48,7 +48,6 @@
             text-transform: uppercase;
         }
 
-        /* Group the buttons side by side */
         .button-group {
             display: flex;
             gap: 20px;
@@ -68,28 +67,51 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(239, 71, 111, 0.4);
             white-space: nowrap;
+            cursor: pointer;
         }
 
-        /* Unique color for the Theater button to distinguish it */
         .theater-btn {
-            background-color: #06d6a0; /* A fresh green color */
+            background-color: #06d6a0; 
             box-shadow: 0 4px 15px rgba(6, 214, 160, 0.4);
         }
 
-        /* Unique styling for the new Credits button */
         .credits-btn {
-            background-color: #7209b7; /* A sleek, deep purple */
+            background-color: #7209b7; 
             box-shadow: 0 4px 15px rgba(114, 9, 183, 0.4);
         }
 
-        .enter-button:hover {
+        .surprise-btn {
             background-color: #ffd166;
             color: #121216;
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 209, 102, 0.6);
+            box-shadow: 0 4px 15px rgba(255, 209, 102, 0.4);
         }
 
-        /* Animations */
+        .enter-button:hover {
+            background-color: #ffffff;
+            color: #121216;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
+        }
+
+        .surprise-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .surprise-overlay img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -112,14 +134,27 @@
     
             <div class="button-group">
                 <a href="{{ url_for('home') }}" class="enter-button academy-btn">ACADEMY LIST</a>
-                
                 <a href="{{ url_for('theater') }}" class="enter-button theater-btn">THEATER</a>
-
-                <!-- New Credits Button Link -->
                 <a href="{{ url_for('credits_page') }}" class="enter-button credits-btn">CREDITS</a>
+                <button onclick="triggerSurprise()" class="enter-button surprise-btn">SURPRISE</button>
             </div>
         </div>
     </div>
+
+    <div id="flash-overlay" class="surprise-overlay">
+        <img src="{{ url_for('static', filename='images/CredsAnchovy.jpg') }}" alt="Surprise">
+    </div>
+
+    <script>
+        function triggerSurprise() {
+            const overlay = document.getElementById('flash-overlay');
+            overlay.style.display = 'flex';
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1000);
+        }
+    </script>
 
 </body>
 </html>

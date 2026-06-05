@@ -424,9 +424,49 @@ def jotunheim():
 def theater():
     return render_template("theater.html", items=theater_items)
 
+from flask import Flask, render_template, session, request, jsonify
+
+ova_details = {
+    "id": "ova1",
+    "cost": 100
+}
+
 @app.route("/theater/anzio")
-def anzio():
-    return render_template("ova1.html")
+def render_ova1():
+    user_gold = session.get("gold", 0)
+    unlocked_list = session.get("unlocked_episodes", ["ep1"])
+    is_unlocked = "ova1" in unlocked_list
+
+    return render_template(
+        "ova1.html", 
+        gold=user_gold, 
+        is_unlocked=is_unlocked,
+        cost=100
+    )
+
+@app.route("/api/unlock-episode", methods=["POST"])
+def unlock_ova_episode():
+    data = request.get_json()
+    episode_id = data.get("episode_id")
+    cost = data.get("cost", 0)
+    
+    user_gold = session.get("gold", 0)
+    unlocked_list = session.get("unlocked_episodes", ["ep1"])
+    
+    if episode_id in unlocked_list:
+        return jsonify({"success": False, "error": "Already unlocked!"})
+        
+    if user_gold >= cost:
+        session["gold"] = user_gold - cost
+        unlocked_list.append(episode_id)
+        session["unlocked_episodes"] = unlocked_list
+        
+        return jsonify({
+            "success": True, 
+            "new_gold_balance": session["gold"]
+        })
+    else:
+        return jsonify({"success": False, "error": "Insufficient gold!"})
 
 @app.route("/theater/alice")
 def alice():

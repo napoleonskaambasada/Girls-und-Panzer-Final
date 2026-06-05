@@ -8,14 +8,13 @@
 
 <div class="page" style="max-width: 1200px; margin: auto; padding: 20px;">
     
-    <!-- Gold System Tracker Dashboard Hub -->
     <div class="gold-hud-container" style="background: #16161d; border: 2px solid #ffd166; border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(255, 209, 102, 0.15);">
         <div style="font-size: 1.3rem; font-weight: bold; color: #ffd166; display: flex; align-items: center; gap: 8px;">
             <span>🪙 Balance:</span>
             <span id="global-gold-counter">{{ gold }}</span><span>g</span>
         </div>
-        <button onclick="performDrillAction()" style="background: linear-gradient(135deg, #06d6a0, #04a57a); border: none; padding: 10px 20px; color: white; border-radius: 30px; font-weight: bold; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
-            ✊ Complete Match Drill (+50g)
+        <button onclick="openWorkModal()" style="background: linear-gradient(135deg, #ffd166, #f7b267); border: none; padding: 10px 20px; color: #0b0b0e; border-radius: 30px; font-weight: bold; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            ⚙️ Report for Academy Drill (+50g)
         </button>
     </div>
 
@@ -45,11 +44,9 @@
             <h3 style="border-bottom: 2px solid var(--accent-magenta); padding-bottom: 10px; margin-bottom: 15px;">Episode Selection</h3>
             <div class="ep-list" style="max-height: 500px; overflow-y: auto; padding-right: 5px;">
                 {% for ep in episodes %}
-                    <!-- Check state tracking parameters -->
                     {% set is_unlocked = ep.id in unlocked %}
                     
                     {% if is_unlocked %}
-                        <!-- Render standard playback hyperlink nodes -->
                         <a href="javascript:void(0);" 
                            class="ep-item current-unlocked-row"
                            data-file="{{ url_for('static', filename='videos/' + ep.file) }}" 
@@ -59,12 +56,10 @@
                             <b style="color: var(--primary-pink);">{{ ep.number }}.</b> {{ ep.title }}
                         </a>
                     {% else %}
-                        <!-- Render interactive purchase node interfaces -->
                         <div class="locked-ep-container" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; margin-bottom: 8px; background: #1a1a24; border: 1px dashed rgba(239, 71, 111, 0.4); opacity: 0.85;">
                             <div style="font-size: 0.95rem; color: #8c8c9e;">
                                 <b>{{ ep.number }}.</b> <span style="filter: blur(2.5px); pointer-events: none; user-select: none;">{{ ep.title }}</span>
                             </div>
-                            <!-- FIXED LINE BELOW: Wrapped cost in single quotes to satisfy IDE syntax checking -->
                             <button onclick="requestUnlockAsset('{{ ep.id }}', '{{ ep.cost }}')" style="background: #ef476f; color: white; border: none; font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s;">
                                 Unlock {{ ep.cost }}g
                             </button>
@@ -77,7 +72,23 @@
     </div>
 </div>
 
+<div id="work-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #1c1c24; border: 2px solid #ffd166; padding: 30px; border-radius: 12px; width: 450px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <h3 id="modal-type-title" style="color: #ffd166; margin-top: 0; font-size: 1.4rem;">📋 Sensha-dō Duty Assignment</h3>
+        <p id="modal-instructions" style="color: #ccc; font-size: 1rem; margin-bottom: 20px;">Loading assignment parameters...</p>
+        
+        <div id="quiz-options-container" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;"></div>
+        <input type="text" id="modal-text-input" style="display: none; width: 100%; padding: 10px; background: #0b0b0e; border: 1px solid #444; border-radius: 6px; color: white; text-align: center; font-size: 1.1rem; box-sizing: border-box; margin-bottom: 20px;" autocomplete="off">
+        
+        <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 15px;">
+            <button onclick="closeWorkModal()" style="background: #444; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Dismiss</button>
+            <button id="modal-submit-btn" onclick="verifyTaskCompletion()" style="background: #06d6a0; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; flex-grow: 1;">Submit Verification</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    // VIDEO PLAYER INTERACTION LOGIC
     const epLinks = document.querySelectorAll('.ep-item');
     const player = document.getElementById('main-player');
     const titleDisplay = document.getElementById('now-playing-title');
@@ -104,33 +115,123 @@
         });
     });
 
-    // JavaScript Actions supporting tab-safe server side actions
-    function performDrillAction() {
+    // WORK ECONOMY ENGINE & DRILL DATA HOOKS
+    let currentTask = null;
+
+    const workTasks = [
+        {
+            type: "text",
+            instruction: 'To polish the hull armor plating, input the command precisely:<br><br><code style="color:#ef476f; background:#222; padding:3px 6px; border-radius:4px;">PANZER VOR</code>',
+            correctAnswer: "PANZER VOR"
+        },
+        {
+            type: "text",
+            instruction: 'Verify secondary radio communication lines by typing:<br><br><code style="color:#06d6a0; background:#222; padding:3px 6px; border-radius:4px;">AN KOU</code>',
+            correctAnswer: "AN KOU"
+        },
+        {
+            type: "quiz",
+            instruction: "Who is the overall supreme commander of Ōarai Girls' Academy's Sensha-dō fleet?",
+            options: ["Maho Nishizumi", "Miho Nishizumi", "Darjeeling", "Katyusha"],
+            correctAnswer: "Miho Nishizumi"
+        },
+        {
+            type: "quiz",
+            instruction: "What is the primary flagship tank operated by the Anglerfish Team?",
+            options: ["Tiger I", "Sherman Firefly", "Panzer IV", "Churchill Mk. VII"],
+            correctAnswer: "Panzer IV"
+        }
+    ];
+
+    function openWorkModal() {
+        const modal = document.getElementById('work-modal');
+        const instructionText = document.getElementById('modal-instructions');
+        const textInput = document.getElementById('modal-text-input');
+        const optionsContainer = document.getElementById('quiz-options-container');
+        const submitBtn = document.getElementById('modal-submit-btn');
+
+        // Reset values
+        textInput.value = "";
+        textInput.style.display = "none";
+        optionsContainer.innerHTML = "";
+        submitBtn.style.display = "block";
+
+        // Draw a random task entry from the pool
+        currentTask = workTasks[Math.floor(Math.random() * workTasks.length)];
+        instructionText.innerHTML = currentTask.instruction;
+
+        if (currentTask.type === "text") {
+            textInput.style.display = "block";
+            setTimeout(() => textInput.focus(), 50);
+        } else if (currentTask.type === "quiz") {
+            submitBtn.style.display = "none"; // Selecting option triggers verification automatically
+            currentTask.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.style.cssText = "background:#2a2a38; border:1px solid #444; color:white; padding:10px; border-radius:6px; cursor:pointer; font-weight:bold; text-align:left; transition: 0.2s;";
+                btn.onmouseover = () => { btn.style.background = "#ffd166"; btn.style.color = "#0b0b0e"; };
+                btn.onmouseout = () => { btn.style.background = "#2a2a38"; btn.style.color = "white"; };
+                btn.onclick = () => evaluateQuizSelection(opt);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        modal.style.display = "flex";
+    }
+
+    function closeWorkModal() {
+        document.getElementById('work-modal').style.display = "none";
+    }
+
+    function evaluateQuizSelection(selectedAnswer) {
+        if (selectedAnswer === currentTask.correctAnswer) {
+            grantGoldReward();
+        } else {
+            alert("❌ Incorrect response parameter! Report for a fresh drill assignment.");
+            openWorkModal();
+        }
+    }
+
+    function verifyTaskCompletion() {
+        if (currentTask.type === "text") {
+            const userVal = document.getElementById('modal-text-input').value.trim();
+            if (userVal.toUpperCase() === currentTask.correctAnswer.toUpperCase()) {
+                grantGoldReward();
+            } else {
+                alert("❌ Verification mismatched! Match letters and spacing exactly.");
+            }
+        }
+    }
+
+    function grantGoldReward() {
         fetch('/api/earn-gold', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
-            if(data.success) {
+            if (data.success) {
                 document.getElementById('global-gold-counter').innerText = data.new_gold_balance;
+                closeWorkModal();
+                alert("🪙 Drill duty approved! +50g secure in wallet.");
             }
-        });
+        })
+        .catch(err => console.error("Network synchronization issue:", err));
     }
 
     function requestUnlockAsset(episodeId, costAmount) {
         fetch('/api/unlock-episode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ episode_id: episodeId, cost: costAmount })
+            body: JSON.stringify({ episode_id: episodeId, cost: parseInt(costAmount) })
         })
         .then(response => response.json())
         .then(data => {
             if(data.success) {
                 document.getElementById('global-gold-counter').innerText = data.new_gold_balance;
-                // Force hot-reload to restructure Jinja compilation blocks automatically
                 window.location.reload();
             } else {
                 alert(data.error);
             }
-        });
+        })
+        .catch(err => console.error("Unlock sync issue:", err));
     }
 </script>
 
